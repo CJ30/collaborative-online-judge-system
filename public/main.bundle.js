@@ -234,7 +234,7 @@ var EditorComponent = (function () {
         this.languages = ['Java', 'Python'];
         this.output = '';
         this.defaultContent = {
-            'Java': "public class Example {\n public static void main(String[] args) {\n     // Type your Java code here\n }",
+            'Java': "public class Example {\n public static void main(String[] args) {\n     // Type your Java code here \n    }\n }",
             'Python': "class Solution:\n   def example():\n       # Write your Python code here"
         };
     }
@@ -612,12 +612,6 @@ var CollaborationService = (function () {
         this.clientsInfo = {};
         this.clientNum = 0;
     }
-    // init(): void {
-    //   this.collaborationSocket = io(window.location.origin, { query: 'message=' +'hahahaha'});
-    //   this.collaborationSocket.on('message', (message) => {
-    //     console.log('message received from server: ' + message);
-    //   });
-    // }
     CollaborationService.prototype.init = function (sessionId, editor) {
         var _this = this;
         this.collaborationSocket = io(window.location.origin, { query: 'sessionId=' + sessionId });

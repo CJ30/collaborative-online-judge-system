@@ -38,14 +38,12 @@ router.post('/build_and_run', jsonParser, function(req, res) {
     const userCodes  = req.body.userCodes;
     const lang = req.body.lang;
     console.log(lang + ': ' + userCodes);
-    // res.json({'text': 'ha123123123joajhaha done'});
     restClient.methods.build_and_run(
         {
             data: { code: userCodes, lang: lang},
             headers: { 'Content-Type': 'application/json'}
         }, (data, response) => {
             console.log('Received from execution server');
-            // {build : 'zoijofajf', run: 'joadisjfoiajf'}
             const text = `Build ouput: ${data['build']}  Execute output: ${data['run']}`;
             data['text'] = text;
             res.json(data);

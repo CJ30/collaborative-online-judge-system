@@ -7,7 +7,7 @@ from docker.errors import APIError
 from docker.errors import ContainerError
 from docker.errors import ImageNotFound
 
-IMAGE_NAME = 'paysonwu/cs503_1704'
+IMAGE_NAME = 'CJ30/project1'
 client = docker.from_env()
 
 CURRENT_DIR = os.path.dirname(os.path.relpath(__file__))
