@@ -2,17 +2,16 @@ const redisClient = require('../modules/redisClient');
 const TIMEOUT_IN_SECONDS = 3600;
 
 module.exports = function(io) {
-    const sessionPath = '/temp_session';
+    const sessionPath = '/temp_session/';
     // collaboration sessions
     const collaborations = {};
     const socketIdToSessionId = {};
-    
+
     io.on('connection', (socket) => {
         // console.log(socket);
         // const message = socket.handshake.query['message'];
         // console.log(message);
-        // io.to(socket.id).emit('message', 'hahahahhaahha from server');
-
+        // io.to(socket.id).emit('message', 'hahahahahahahaha from server');
         const sessionId = socket.handshake.query['sessionId'];
         socketIdToSessionId[socket.id] = sessionId;
 
@@ -22,7 +21,6 @@ module.exports = function(io) {
         //     };
         // }
         // collaborations[sessionId]['participants'].push(socket.id);
-
         if (sessionId in collaborations) {
             collaborations[sessionId]['participants'].push(socket.id);
         } else {
@@ -31,13 +29,13 @@ module.exports = function(io) {
                     console.log('session terminated before, pulling back from redis');
                     collaborations[sessionId] = {
                         'cachedInstructions': JSON.parse(data),
-                        'participants': [],
+                        'participants': []
                     }
                 } else {
                     console.log('creating new session');
                     collaborations[sessionId] = {
                         'cachedInstructions': [],
-                        'participants': [],
+                        'participants': []
                     }
                 }
                 collaborations[sessionId]['participants'].push(socket.id);
@@ -45,11 +43,11 @@ module.exports = function(io) {
         }
 
         socket.on('change', delta => {
-            console.log('change' + socketIdToSessionId[socket.id] + ' ' + delta);
+            console.log('change' + socketIdToSessionId[socket.id] + ' ' + delta );
             // const sessionId = socketIdToSessionId[socket.id];
             // if (sessionId in collaborations) {
             //     const participants = collaborations[sessionId]['participants'];
-            //     for (let participant of participants) {
+            //     for(let participant of participants) {
             //         if (socket.id != participant) {
             //             io.to(participant).emit('change', delta);
             //         }
@@ -61,12 +59,11 @@ module.exports = function(io) {
             if (sessionId in collaborations) {
                 collaborations[sessionId]['cachedInstructions'].push(['change', delta, Date.now()]);
             }
-
             forwardEvent(socket.id, 'change', delta);
         });
 
         socket.on('cursorMove', cursor => {
-            console.log('cursorMove' + socketIdToSessionId[socket.id] + ' ' + cursor);
+            console.log('cursorMove' + socketIdToSessionId[socket.id] + ' ' + cursor );
             cursor = JSON.parse(cursor);
             cursor['socketId'] = socket.id;
             forwardEvent(socket.id, 'cursorMove', JSON.stringify(cursor));
@@ -74,14 +71,14 @@ module.exports = function(io) {
 
         socket.on('restoreBuffer', () => {
             const sessionId = socketIdToSessionId[socket.id];
-            console.log('restoreBuffer for session: ' + sessionId);
+            console.log('restore buffer for session: ' + sessionId);
             if (sessionId in collaborations) {
-                const instructions = collaborations[sessionId]['cachedInstructions']; 
-                for (let instruction of instructions) {
+                const instructoins = collaborations[sessionId]['cachedInstructions'];
+                for (let instruction of instructoins) {
                     socket.emit(instruction[0], instruction[1]);
                 }
             } else {
-                // todo
+                // TODO
             }
         });
 
@@ -113,7 +110,7 @@ module.exports = function(io) {
         const sessionId = socketIdToSessionId[socketId];
         if (sessionId in collaborations) {
             const participants = collaborations[sessionId]['participants'];
-            for (let participant of participants) {
+            for(let participant of participants) {
                 if (socketId != participant) {
                     io.to(participant).emit(eventName, dataString);
                 }
@@ -122,5 +119,4 @@ module.exports = function(io) {
             console.warn('WARNING');
         }
     }
-
 }

@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello():
-    return 'helsssssslo worsfsdfsdfsdfsdfsdld'
+    return 'hello world'
 
 @app.route('/build_and_run', methods=['POST'])
 def build_and_run():
@@ -25,7 +25,5 @@ def build_and_run():
     return jsonify(result)
 
 if __name__ == "__main__":
-    import sys
-    port = int(sys.argv[1])
     eu.load_image()
-    app.run(port=port)
+    app.run(debug=True)

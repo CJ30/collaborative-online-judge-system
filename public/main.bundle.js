@@ -186,7 +186,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "@media screen {\n    #editor {\n      height: 600px;\n    }\n    .lang-select {\n      width: 100px;\n      margin-right: 10px;\n    }\n    header .btn {\n      margin: 0 5px;\n    }\n    footer .btn {\n      margin: 0 5px;\n    }\n    .editor-footer, .editor-header {\n      margin: 10px 0;\n    }\n    .cursor {\n      /*position:absolute;*/\n      background: rgba(0, 250, 0, 0.5);\n      z-index: 40;\n      width: 2px !important;\n    }\n   }", ""]);
+exports.push([module.i, "@media screen {\n #editor {\n   height: 600px;\n }\n .lang-select {\n   width: 100px;\n   margin-right: 10px;\n }\n header .btn {\n   margin: 0 5px;\n }\n footer .btn {\n   margin: 0 5px;\n }\n .editor-footer, .editor-header {\n   margin: 10px 0;\n }\n .cursor {\n   /*position:absolute;*/\n   background: rgba(0, 250, 0, 0.5);\n   z-index: 40;\n   width: 2px !important;\n }\n}\n", ""]);
 
 // exports
 
@@ -199,7 +199,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/editor/editor.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<section>\n    <header class=\"editor-header\">\n      <select class=\"form-control pull-left lang-select\" name=\"language\"\n       [(ngModel)]=\"language\" (change)=\"setLanguage(language)\">\n       <option *ngFor=\"let language of languages\" [value]=\"language\">\n         {{language}}\n       </option>\n      </select>\n      <!--reset button -->\n      <!-- Button trigger modal -->\n      <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModal\">\n        Reset\n      </button>\n  \n      <!-- Modal -->\n      <div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\n        <div class=\"modal-dialog\" role=\"document\">\n          <div class=\"modal-content\">\n            <div class=\"modal-header\">\n              <h5 class=\"modal-title\" id=\"exampleModalLabel\">Are you sure</h5>\n              <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                <span aria-hidden=\"true\">&times;</span>\n              </button>\n            </div>\n            <div class=\"modal-body\">\n              You will lose current code in the editor, are you sure?\n            </div>\n            <div class=\"modal-footer\">\n              <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Cancel</button>\n              <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\"\n              (click)=\"resetEditor()\">Reset</button>\n            </div>\n          </div>\n        </div>\n      </div>\n    </header>\n    <div class=\"row\">\n      <div id=\"editor\">\n      </div>\n    </div><!-- This is the body -->\n    <div class=\"row\">\n      {{output}}\n    </div>\n    <footer class=\"editor-footer\">\n        <button type=\"button\" class=\"btn btn-success pull-right\" \n        (click)=\"submit()\">Submit Solution</button>\n    </footer>\n  </section>"
+module.exports = "<section>\n  <header class=\"editor-header\">\n    <select class=\"form-control pull-left lang-select\" name=\"language\"\n     [(ngModel)]=\"language\" (change)=\"setLanguage(language)\">\n     <option *ngFor=\"let language of languages\" [value]=\"language\">\n       {{language}}\n     </option>\n    </select>\n    <!--reset button -->\n    <!-- Button trigger modal -->\n    <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModal\">\n      Reset\n    </button>\n\n    <!-- Modal -->\n    <div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\n      <div class=\"modal-dialog\" role=\"document\">\n        <div class=\"modal-content\">\n          <div class=\"modal-header\">\n            <h5 class=\"modal-title\" id=\"exampleModalLabel\">Are you sure</h5>\n            <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n              <span aria-hidden=\"true\">&times;</span>\n            </button>\n          </div>\n          <div class=\"modal-body\">\n            You will lose current code in the editor, are you sure?\n          </div>\n          <div class=\"modal-footer\">\n            <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Cancel</button>\n            <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\"\n            (click)=\"resetEditor()\">Reset</button>\n          </div>\n        </div>\n      </div>\n    </div>\n  </header>\n  <div class=\"row\">\n    <div id=\"editor\">\n    </div>\n  </div><!-- This is the body -->\n  <div class=\"row\">\n    {{output}}\n  </div>\n  <footer class=\"editor-footer\">\n      <button type=\"button\" class=\"btn btn-success pull-right\" \n      (click)=\"submit()\">Submit Solution</button>\n  </footer>\n</section>"
 
 /***/ }),
 
@@ -234,8 +234,8 @@ var EditorComponent = (function () {
         this.languages = ['Java', 'Python'];
         this.output = '';
         this.defaultContent = {
-            'Java': "public class Example {\n  public static void main(String[] args) {\n  // Type your Java code here\n  } \n}",
-            'Python': "class Solution:\n    def example():\n    # Write your Python code here"
+            'Java': "public class Example {\n public static void main(String[] args) {\n     // Type your Java code here\n }",
+            'Python': "class Solution:\n   def example():\n       # Write your Python code here"
         };
     }
     EditorComponent.prototype.ngOnInit = function () {
@@ -254,16 +254,16 @@ var EditorComponent = (function () {
         this.resetEditor();
         this.collaboration.init(this.sessionId, this.editor);
         this.editor.lastAppliedChange = null;
-        // regist change callbacks 
+        // regist change callbacks
         this.editor.on('change', function (e) {
-            console.log('editor changes ' + JSON.stringify(e));
+            console.log('editor changes: ' + JSON.stringify(e));
             if (_this.editor.lastAppliedChange != e) {
                 _this.collaboration.change(JSON.stringify(e));
             }
         });
         this.editor.getSession().getSelection().on('changeCursor', function () {
             var cursor = _this.editor.getSession().getSelection().getCursor();
-            console.log('cursor from client' + JSON.stringify(cursor));
+            console.log('cursor from log from client ' + JSON.stringify(cursor));
             _this.collaboration.cursorMove(JSON.stringify(cursor));
         });
         this.collaboration.restoreBuffer();
@@ -465,7 +465,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/problem-detail/problem-detail.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class = \"container\" *ngIf = \"problem\">\n  <div class=\"col-xs-12 col-md-4\">\n    <h2>\n      {{problem.id}}. {{problem.name}}\n    </h2>\n    <p>\n      {{problem.desc}}\n    </p>\n\n  </div>\n  <div class=\"hidden-xs col-sm-12 col-md-8\">\n      <app-editor></app-editor>\n  </div>\n</div>\n"
+module.exports = "<div class = \"container\" *ngIf = \"problem\">\n  <div class=\"col-xs-12 col-md-4\">\n    <h2>\n      {{problem.id}}. {{problem.name}}\n    </h2>\n    <p>\n      {{problem.desc}}\n    </p>\n\n  </div>\n  <div class=\"hidden-xs col-sm-12 col-md-8\">\n    <app-editor></app-editor>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -613,9 +613,9 @@ var CollaborationService = (function () {
         this.clientNum = 0;
     }
     // init(): void {
-    //   this.collaborationSocket = io(window.location.origin, { query: 'message=' + 'hahaha'});
+    //   this.collaborationSocket = io(window.location.origin, { query: 'message=' +'hahahaha'});
     //   this.collaborationSocket.on('message', (message) => {
-    //     console.log('message received from server is ' + message);
+    //     console.log('message received from server: ' + message);
     //   });
     // }
     CollaborationService.prototype.init = function (sessionId, editor) {
@@ -623,7 +623,7 @@ var CollaborationService = (function () {
         this.collaborationSocket = io(window.location.origin, { query: 'sessionId=' + sessionId });
         // listeners
         this.collaborationSocket.on('change', function (delta) {
-            console.log('collaboration from server: editor changes by ' + delta);
+            console.log('collabration from server : editor changes by ' + delta);
             delta = JSON.parse(delta);
             editor.lastAppliedChange = delta;
             editor.getSession().getDocument().applyDeltas([delta]);
@@ -642,7 +642,7 @@ var CollaborationService = (function () {
                 _this.clientsInfo[changeClientId] = {};
                 var css = document.createElement('style');
                 css.type = 'text/css';
-                css.innerHTML = ".editor_cursor_" + changeClientId + "\n                        {\n                          position:absolute;\n                          background:" + __WEBPACK_IMPORTED_MODULE_1__assets_colors__["a" /* COLORS */][_this.clientNum] + ";\n                          z-index:100;\n                          width:3px !important;\n                        }";
+                css.innerHTML = ".editor_cursor_" + changeClientId + "\n                        { \n                          position:absolute;\n                          background:" + __WEBPACK_IMPORTED_MODULE_1__assets_colors__["a" /* COLORS */][_this.clientNum] + ";\v\n                          z-index:100;\n                          width:3px !important;\n                        }";
                 document.body.appendChild(css);
                 _this.clientNum++;
             }

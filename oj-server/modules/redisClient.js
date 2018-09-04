@@ -9,7 +9,7 @@ function set(key, value, callback) {
         }
         callback(res);
     });
-} 
+}
 
 function get(key, callback) {
     client.get(key, function(err, res) {

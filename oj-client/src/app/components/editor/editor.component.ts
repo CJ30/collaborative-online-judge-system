@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params} from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { CollaborationService } from '../../services/collaboration/collaboration.service';
 import { DataService } from '../../services/data/data.service';
 
-declare const ace: any;
-
+declare var ace: any;
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
@@ -25,18 +24,18 @@ export class EditorComponent implements OnInit {
    def example():
        # Write your Python code here`
   };
- 
+
   constructor(private collaboration: CollaborationService,
               private data: DataService,
               private route: ActivatedRoute) { }
-
 
   ngOnInit() {
     this.route.params
       .subscribe(params => {
         this.sessionId = params['id'];
         this.initEditor();
-    })
+      })
+    
   }
 
   initEditor(): void {
@@ -48,9 +47,9 @@ export class EditorComponent implements OnInit {
     this.collaboration.init(this.sessionId, this.editor);
     this.editor.lastAppliedChange = null;
 
-    // regist change callbacks 
+    // regist change callbacks
     this.editor.on('change', (e) => {
-      console.log('editor changes ' + JSON.stringify(e));
+      console.log('editor changes: ' + JSON.stringify(e));
       if (this.editor.lastAppliedChange != e) {
         this.collaboration.change(JSON.stringify(e));
       }
@@ -58,7 +57,7 @@ export class EditorComponent implements OnInit {
 
     this.editor.getSession().getSelection().on('changeCursor', ()=> {
       const cursor = this.editor.getSession().getSelection().getCursor();
-      console.log('cursor from client' + JSON.stringify(cursor));
+      console.log('cursor from log from client ' + JSON.stringify(cursor));
       this.collaboration.cursorMove(JSON.stringify(cursor));
     });
 
@@ -83,8 +82,8 @@ export class EditorComponent implements OnInit {
       userCodes: userCodes,
       lang: this.language.toLowerCase()
     };
-    
     this.data.buildAndRun(data)
-    .then(res => this.output = res.text);
+      .then(res => this.output = res.text);
   }
+
 }
