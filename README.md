@@ -8,25 +8,14 @@ In each problem session, multiple users could edit simultaneously and also send 
 
 I add Nginx server, as load balancer, between multiple code executors and node server (process speed of code executor is slower than request sending speed of node server), to improve system throughput.
 
-
-
-
-
-
-
-# BitTiger-CS503-1801
-How do I get set up?
-
-Summary of set up for first Project: Collaborative Online Judge
-# WEEK1 & WEEK2
-
-# Install NodeJs:
-
+## Prerequisites
+All softwares are presented in Linux way.
+### Install NodeJs:
+```
 sudo apt-get update
-
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-
 sudo apt-get install -y nodejs
+```
 
 # Install Nodemon
 
