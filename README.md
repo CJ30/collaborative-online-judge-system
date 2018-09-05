@@ -82,5 +82,8 @@ Here is overall architecture:
 
 ## Author
 * Chengjin Sun (CJ30)
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 5e6bc29f3579cb33c86e0c5c53ebf653047bb870
