@@ -69,6 +69,14 @@ sh ./launcher.sh
 ```
 
 ## Built with
-![Here is overall architecture](https://drive.google.com/open?id=17IheDQKzz2jBp8-mAWv_t2vlf3nu9Zb7)
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+Here is overall architecture:
+
+![](TODO picture)
+* Browser: Angular 2 framework 
+* Frontend: NodeJs server + Express router
+* WebSocket: Socket io
+* Load Balancer: Nginx server
+* Executor & Judger: Docker + Flask 
+* Cache: Redis
+* Database: MongoDB
 
