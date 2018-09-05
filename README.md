@@ -80,3 +80,5 @@ Here is overall architecture:
 * Cache: Redis
 * Database: MongoDB
 
+## Author
+* Chengjin Sun (CJ30)
