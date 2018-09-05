@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
   },
-  "author": "Payson Wu",
+  "author": "CJ30",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.1",
