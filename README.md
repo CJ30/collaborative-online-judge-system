@@ -69,6 +69,6 @@ sh ./launcher.sh
 ```
 
 ## Built with
-[Here is overall architecture](https://drive.google.com/open?id=17IheDQKzz2jBp8-mAWv_t2vlf3nu9Zb7)
+![Here is overall architecture](https://drive.google.com/open?id=17IheDQKzz2jBp8-mAWv_t2vlf3nu9Zb7)
 
 
