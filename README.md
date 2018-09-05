@@ -71,7 +71,7 @@ sh ./launcher.sh
 ## Built with
 Here is overall architecture:
 
-![](https://github.com/CJ30/collaborative-online-judge-system/OJ-Architecture.png)
+![](https://github.com/CJ30/collaborative-online-judge-system/blob/master/OJ-Architecture.png)
 * Browser: Angular 2 framework 
 * Frontend: NodeJs server + Express router
 * WebSocket: Socket io
