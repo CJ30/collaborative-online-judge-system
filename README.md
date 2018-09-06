@@ -64,7 +64,6 @@ sudo apt-get install nginx
 
 ## Getting Started
 ```
-git clone https://github.com/CJ30/collaborative-online-judge-system.git
 sh ./launcher.sh
 ```
 
